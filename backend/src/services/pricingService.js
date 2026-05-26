@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Part = require('../models/Part');
-const { isDateInRange } = require('../utils/dateUtils');
+const { isDateInRange, getEffectivePrice } = require('../utils/dateUtils');
 
 class PricingService {
   constructor() {
@@ -32,15 +32,8 @@ class PricingService {
       const part = this.parts.find(p => p.id === partId);
       if (!part) continue;
 
-      let priceForDate = 0;
-      for (const entry of part.priceHistory) {
-        if (isDateInRange(date, entry.validFrom, entry.validUntil)) {
-          priceForDate = entry.price;
-          break;
-        }
-      }
-
-      if (priceForDate > 0) {
+      const priceForDate = getEffectivePrice(part, date);
+      if (priceForDate !== null) {
         categoryTotals[part.component] = (categoryTotals[part.component] || 0) + priceForDate;
         grandTotal += priceForDate;
       }
