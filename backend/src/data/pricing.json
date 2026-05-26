@@ -1,0 +1,139 @@
+[
+  {
+    "id": "steel",
+    "name": "Steel Frame",
+    "component": "Frame",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 1200 }
+    ]
+  },
+  {
+    "id": "aluminium",
+    "name": "Aluminium Frame",
+    "component": "Frame",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 2000 }
+    ]
+  },
+  {
+    "id": "standard",
+    "name": "Standard Handlebar",
+    "component": "Handle Bar & Brakes",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 400 }
+    ]
+  },
+  {
+    "id": "v_brakes",
+    "name": "V Brakes",
+    "component": "Handle Bar & Brakes",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 450 }
+    ]
+  },
+  {
+    "id": "disc",
+    "name": "Disc Brakes",
+    "component": "Handle Bar & Brakes",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 800 }
+    ]
+  },
+  {
+    "id": "basic",
+    "name": "Basic Saddle",
+    "component": "Seating",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 400 }
+    ]
+  },
+  {
+    "id": "ergonomic",
+    "name": "Ergonomic Saddle",
+    "component": "Seating",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 800 }
+    ]
+  },
+  {
+    "id": "rim-standard",
+    "name": "Standard Rim",
+    "component": "Wheels",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 600 }
+    ]
+  },
+  {
+    "id": "tubeless_compatible",
+    "name": "Tubeless Compatible Rim",
+    "component": "Wheels",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 1000 }
+    ]
+  },
+  {
+    "id": "tube",
+    "name": "Tube",
+    "component": "Wheels",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 400 }
+    ]
+  },
+  {
+    "id": "tyre-standard",
+    "name": "Standard Tyre",
+    "component": "Wheels",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 500 }
+    ]
+  },
+  {
+    "id": "tubeless_tyre",
+    "name": "Tubeless Tyre",
+    "component": "Wheels",
+    "priceHistory": [
+      {
+        "validFrom": "2016-01-01",
+        "validUntil": "2016-11-30",
+        "price": 200
+      },
+      {
+        "validFrom": "2016-12-01",
+        "validUntil": null,
+        "price": 230
+      }
+    ]
+  },
+  {
+    "id": "spokes-standard",
+    "name": "Standard Spokes",
+    "component": "Wheels",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 480 }
+    ]
+  },
+  {
+    "id": "single",
+    "name": "Single Speed Chain",
+    "component": "Chain Assembly",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 950 }
+    ]
+  },
+  {
+    "id": "4_gear",
+    "name": "4 Gear Assembly",
+    "component": "Chain Assembly",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 1500 }
+    ]
+  },
+  {
+    "id": "7_gear",
+    "name": "7 Gear Assembly",
+    "component": "Chain Assembly",
+    "priceHistory": [
+      { "validFrom": "2000-01-01", "validUntil": null, "price": 2000 }
+    ]
+  }
+]
