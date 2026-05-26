@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag, Calendar } from 'lucide-react';
 
-const PricingSummary = ({ pricing, selectedDate, isLoading, hasErrors }) => {
+const PricingSummary = ({ pricing, selectedDate, isLoading, hasErrors, onSave, saveStatus }) => {
   return (
     <div className="bg-slate-900 rounded-xl shadow-xl border border-slate-800 text-white overflow-hidden sticky top-24">
       <div className="p-6 bg-slate-800/50 border-b border-slate-700">
@@ -53,15 +53,18 @@ const PricingSummary = ({ pricing, selectedDate, isLoading, hasErrors }) => {
             </div>
             
             <button 
-              disabled={hasErrors || isLoading}
-              className={`w-full mt-6 font-semibold py-3 px-4 rounded-lg transition-colors shadow-lg
-                ${hasErrors 
-                  ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
-                  : 'bg-primary-600 hover:bg-primary-500 text-white shadow-primary-500/30'
-                }`}
-            >
-              {hasErrors ? 'Fix Errors to Save' : 'Save Configuration'}
-            </button>
+               onClick={onSave}
+               disabled={hasErrors || isLoading || saveStatus === 'saving'}
+               className={`w-full mt-6 font-semibold py-3 px-4 rounded-lg transition-colors shadow-lg
+                 ${hasErrors 
+                   ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
+                   : saveStatus === 'saved' 
+                     ? 'bg-primary-600 text-white' 
+                     : 'bg-primary-600 hover:bg-primary-500 text-white shadow-primary-500/30'
+                 }`}
+             >
+               {hasErrors ? 'Fix Errors to Save' : saveStatus === 'saving' ? 'Saving...' : saveStatus === 'saved' ? 'Saved! ✅' : 'Save Configuration'}
+             </button>
           </>
         )}
       </div>

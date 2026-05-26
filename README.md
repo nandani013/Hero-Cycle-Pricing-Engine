@@ -1,61 +1,60 @@
 # Hero Cycle Pricing Engine
 
-A full-stack application for Hero Cycles that allows salespersons to configure cycle components and instantly get historical time-sensitive pricing information.
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-brightgreen.svg)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active-success.svg)](README.md)
+
+A full‑stack application for Hero Cycles that allows salespersons to configure cycle components and instantly get historical time‑sensitive pricing information.
 
 ## Tech Stack
-- **Frontend**: React, Vite, Tailwind CSS
-- **Backend**: Node.js, Express
-- **Data Storage**: Local JSON files (No Database)
-- **Testing**: Jest, Supertest
+
+| Layer | Technologies |
+|-------|--------------|
+| **Frontend** | React, Vite, Tailwind CSS |
+| **Backend** | Node.js, Express |
+| **Data Storage** | Local JSON files (no database) |
+| **Testing** | Jest, Supertest |
+
+## Features
+
+- Configure cycle parts and view price breakdown.
+- Save configuration with instant visual feedback.
+- Dark‑mode support with glass‑morphism UI.
+- Time‑sensitive pricing based on historical data.
 
 ## Setup Instructions
 
-Ensure you have Node.js (v18 or higher) installed on your system.
+### Prerequisites
 
-1. Clone or download the repository.
-2. Open your terminal in the root directory.
+- Node.js **v18** or higher.
 
-### Running the Backend
+### Backend
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Express server:
-   ```bash
-   node src/index.js
-   ```
-   *The backend will run on http://localhost:5001*
+```bash
+cd backend
+npm install
+node src/index.js   # runs on http://localhost:5001
+```
 
-### Running the Frontend
+### Frontend
 
-1. Open a new terminal window and navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   *The frontend will run on the localhost link provided in your terminal (usually http://localhost:5173)*
+```bash
+cd frontend
+npm install
+npm run dev         # runs on http://localhost:5173
+```
 
 ### Running Tests
 
-The backend includes a comprehensive Jest test suite to verify the time-sensitive historical pricing logic.
+```bash
+cd backend
+npm test
+```
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Run the tests:
-   ```bash
-   npm test
-   ```
+## Contributing
+
+Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.

@@ -17,6 +17,7 @@ function App() {
   const [pricing, setPricing] = useState({ breakdown: {}, total: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+  const [saveStatus, setSaveStatus] = useState('idle'); // 'idle' | 'saving' | 'saved'
 
   const handleComponentChange = (category, fieldId, value) => {
     setSelectedComponents(prev => ({
@@ -42,6 +43,23 @@ function App() {
   }, [selectedComponents]);
 
   const hasErrors = Object.keys(validationErrors).length > 0;
+
+  // Save configuration handler
+  const handleSave = () => {
+    setSaveStatus('saving');
+    const config = {
+      date: selectedDate,
+      components: selectedComponents
+    };
+    try {
+      localStorage.setItem('heroCycleConfig', JSON.stringify(config));
+      setSaveStatus('saved');
+      setTimeout(() => setSaveStatus('idle'), 2000);
+    } catch (e) {
+      console.error('Failed to save config', e);
+      setSaveStatus('idle');
+    }
+  };
 
   useEffect(() => {
     // Prevent fetching if there are validation errors
@@ -111,6 +129,8 @@ function App() {
               selectedDate={selectedDate}
               isLoading={isLoading} 
               hasErrors={hasErrors}
+              onSave={handleSave}
+              saveStatus={saveStatus}
             />
           </div>
           
