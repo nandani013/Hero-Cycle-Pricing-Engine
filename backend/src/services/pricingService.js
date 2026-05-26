@@ -13,7 +13,10 @@ class PricingService {
     this._loadData();
   }
 
-  // Load pricing data from the JSON file and instantiate Part objects
+  // Returns an array of all part IDs available in the data
+  getAvailablePartIds() {
+    return this.parts.map(p => p.id);
+  }
   _loadData() {
     const dataPath = path.join(__dirname, '..', 'data', 'pricing.json');
     try {
