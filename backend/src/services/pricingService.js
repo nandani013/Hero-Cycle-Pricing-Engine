@@ -1,45 +1,58 @@
 const fs = require('fs');
 const path = require('path');
 const Part = require('../models/Part');
-const { isDateInRange, getEffectivePrice } = require('../utils/dateUtils');
+const { getEffectivePrice } = require('../utils/dateUtils');
 
+/**
+ * PricingService loads part data from JSON and provides a method to calculate
+ * a price breakdown for a given list of part IDs on a specific date.
+ */
 class PricingService {
   constructor() {
     this.parts = [];
-    this.loadData();
+    this._loadData();
   }
 
-  loadData() {
+  // Load pricing data from the JSON file and instantiate Part objects
+  _loadData() {
     const dataPath = path.join(__dirname, '..', 'data', 'pricing.json');
     try {
-      const rawData = fs.readFileSync(dataPath, 'utf8');
-      const parsed = JSON.parse(rawData);
+      const raw = fs.readFileSync(dataPath, 'utf8');
+      const parsed = JSON.parse(raw);
       this.parts = parsed.map(p => new Part(p.id, p.name, p.component, p.priceHistory));
     } catch (err) {
-      console.error("Error loading pricing data:", err);
+      console.error('Failed to load pricing data:', err);
     }
   }
 
-  calculatePrice(parts, date) {
-    if (!parts || !Array.isArray(parts) || !date) {
-      throw new Error('parts array and date are required');
+  /**
+   * Calculate price breakdown.
+   * @param {string[]} selectedParts - array of part IDs requested by the client
+   * @param {string} date - ISO date string for which the price should be evaluated
+   * @returns {{breakdown: Object.<string, number>, total: number}}
+   */
+  calculatePrice(selectedParts, date) {
+    if (!Array.isArray(selectedParts) || !date) {
+      throw new Error('selectedParts (array) and date are required');
     }
 
-    const categoryTotals = {};
-    let grandTotal = 0;
+    const breakdown = {};
+    let total = 0;
 
-    for (const partId of parts) {
+    for (const partId of selectedParts) {
       const part = this.parts.find(p => p.id === partId);
-      if (!part) continue;
+      if (!part) continue; // ignore unknown part IDs
 
-      const priceForDate = getEffectivePrice(part, date);
-      if (priceForDate !== null) {
-        categoryTotals[part.component] = (categoryTotals[part.component] || 0) + priceForDate;
-        grandTotal += priceForDate;
-      }
+      const price = getEffectivePrice(part, date);
+      if (price === null) continue; // no price for this date
+
+      // Group by component (as stored in the data)
+      const component = part.component;
+      breakdown[component] = (breakdown[component] || 0) + price;
+      total += price;
     }
 
-    return { breakdown: categoryTotals, total: grandTotal };
+    return { breakdown, total };
   }
 }
 
