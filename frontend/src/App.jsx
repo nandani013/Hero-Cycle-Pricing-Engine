@@ -3,6 +3,7 @@ import Header from './components/Header';
 import DateSelector from './components/DateSelector';
 import Configurator from './components/Configurator';
 import PricingSummary from './components/PricingSummary';
+import { AlertCircle } from 'lucide-react';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -17,7 +18,16 @@ function App() {
   const [pricing, setPricing] = useState({ breakdown: {}, total: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
-  const [saveStatus, setSaveStatus] = useState('idle'); // 'idle' | 'saving' | 'saved'
+  const [saveStatus, setSaveStatus] = useState('idle');
+  const [apiError, setApiError] = useState('');
+
+  // API error alert above main content
+  const apiErrorAlert = apiError && (
+    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md flex items-start gap-2 text-red-700 text-sm">
+      <AlertCircle size={18} className="mt-0.5 flex-shrink-0" />
+      <p>{apiError}</p>
+    </div>
+  );
 
   const handleComponentChange = (category, fieldId, value) => {
     setSelectedComponents(prev => ({
@@ -89,11 +99,15 @@ function App() {
         if (response.ok) {
           const data = await response.json();
           setPricing(data);
+          setApiError(''); // clear previous errors
         } else {
-          console.error("Failed to fetch pricing");
+          const err = await response.json();
+          console.error('Failed to fetch pricing', err);
+          setApiError(err.error || 'Failed to fetch pricing');
         }
       } catch (error) {
-        console.error("Error connecting to server:", error);
+        console.error('Error connecting to server:', error);
+        setApiError(error.message || 'Connection error');
       } finally {
         setIsLoading(false);
       }
@@ -105,6 +119,7 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
       <Header />
+      {apiErrorAlert}
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

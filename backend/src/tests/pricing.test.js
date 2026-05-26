@@ -50,4 +50,17 @@ describe('Pricing API (Refactored)', () => {
     expect(Object.keys(res.body.breakdown).length).toEqual(5);
     expect(res.body.breakdown['Wheels']).toEqual(1580);
   });
+  it('Should reject invalid tyre/rim combination', async () => {
+    const res = await request(app)
+      .post('/api/calculate-price')
+      .send({
+        date: '2016-12-10',
+        parts: ['tubeless_tyre', 'rim-standard']
+      });
+
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('error');
+    expect(res.body.error).toMatch(/Tubeless tyres require compatible rims/i);
+  });
 });
+  

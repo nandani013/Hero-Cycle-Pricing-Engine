@@ -11,15 +11,23 @@ router.post('/calculate-price', (req, res) => {
       return res.status(400).json({ error: 'Date and parts are required' });
     }
 
+    // Validate parts array
+    if (!Array.isArray(parts) || parts.length === 0) {
+      return res.status(400).json({ error: 'Parts must be a non‑empty array' });
+    }
+
     // Validate date format
     const dateObj = new Date(date);
     if (isNaN(dateObj.getTime())) {
       return res.status(400).json({ error: 'Invalid date format' });
     }
 
-    // Validate parts array
-    if (!Array.isArray(parts) || parts.length === 0) {
-      return res.status(400).json({ error: 'Parts must be a non‑empty array' });
+    // Validate incompatible combinations
+    // Tubeless tyre requires a compatible rim (id "tubeless_compatible")
+    const hasTubelessTyre = parts.includes('tubeless_tyre');
+    const hasCompatibleRim = parts.includes('tubeless_compatible');
+    if (hasTubelessTyre && !hasCompatibleRim) {
+      return res.status(400).json({ error: 'Tubeless tyres require compatible rims.' });
     }
 
     // Ensure all requested parts exist
